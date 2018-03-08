@@ -5,7 +5,19 @@
 	<title></title>
 </head>
 <body>
-
+   <h1 id="name">{{name}}</h1>
 </body>
+
 <script type="text/javascript" src="js/observer.js"></script>
+<script type="text/javascript" src="js/watcher.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+	var ele = document.querySelector('#name')
+	var selfVue = new selfVue({name:'hello world'},ele,'name')
+
+	window.setTimeout( ()=>{
+		 console.log('name值改变了')
+		 selfVue.data.name = 'canfoo'
+	},2000)
+</script>
 </html>

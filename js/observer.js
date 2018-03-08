@@ -1,16 +1,39 @@
 function defineReactive(data,key,val){
     observer(val);  //递归深对象
+    var dep = new Dep()
     Object.defineProperty(data,key,{
         enumerable:true,
         configurable:true,
-        get:()=>{
-           return val
+        get:function(){
+            if(Dep.target){  
+                dep.addSub(Dep.target)  //添加订阅者
+            }
+            return val
         },
-        set:(newVal)=>{
-           val = newVal;
-           console.log('属性'+key+'已被监听了,现在值为:" '+newVal.toString()+'"')
+        set:function(newVal){
+            if(val === newVal){
+                return
+            }
+            val = newVal;
+            dep.notify()
+            console.log('属性'+key+'已被监听了,现在值为:" '+newVal.toString()+'"')
         }
     })
+}
+
+function Dep(){
+    this.subs = []  //订阅者列表
+}
+Dep.target = null
+Dep.prototype = {
+    addSub:function(sub){
+        this.subs.push(sub)
+    },
+    notify:function(){
+        this.subs.forEach( (sub)=>{
+            sub.update()
+        })
+    }
 }
 
 
@@ -23,13 +46,3 @@ function observer(data){
     })
 }
 
-var library = {
-    book1:{
-        name:''
-    },
-    book2:''
-}
-
-observer(library);
-library.book1.name = 'vue权威指南'
-library.book2 = '没有此书籍'
