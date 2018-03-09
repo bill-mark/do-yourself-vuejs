@@ -1,5 +1,5 @@
 function defineReactive(data,key,val){
-    observer(val);  //递归深对象
+    observe(val);  //递归深对象
     var dep = new Dep()
     Object.defineProperty(data,key,{
         enumerable:true,
@@ -15,9 +15,19 @@ function defineReactive(data,key,val){
                 return
             }
             val = newVal;
-            dep.notify()
+            
             console.log('属性'+key+'已被监听了,现在值为:" '+newVal.toString()+'"')
+            dep.notify()
         }
+    })
+}
+
+function observe(data){
+    if(!data || typeof data !== 'object'){
+        return
+    }
+    Object.keys(data).forEach(function(key){
+        defineReactive(data,key,data[key])
     })
 }
 
@@ -37,12 +47,20 @@ Dep.prototype = {
 }
 
 
-function observer(data){
-    if(!data || typeof data !== 'object'){
-        return
-    }
-    Object.keys(data).forEach(function(key){
-        defineReactive(data,key,data[key])
-    })
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

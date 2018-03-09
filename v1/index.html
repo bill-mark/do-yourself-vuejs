@@ -13,11 +13,13 @@
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript">
 	var ele = document.querySelector('#name')
-	var selfVue = new selfVue({name:'hello world'},ele,'name')
+	var selfVue = new SelfVue({
+		name:'hello world'
+	},ele,'name')
 
 	window.setTimeout( ()=>{
 		 console.log('name值改变了')
-		 selfVue.data.name = 'canfoo'
+		 selfVue.data.name = 'you'
 	},2000)
 </script>
 </html>
