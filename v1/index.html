@@ -6,6 +6,8 @@
 </head>
 <body>
    <h1 id="name">{{name}}</h1>
+
+   <h2 id="change">点我改变</h2>
 </body>
 
 <script type="text/javascript" src="js/observer.js"></script>
@@ -17,9 +19,9 @@
 		name:'hello world'
 	},ele,'name')
 
-	window.setTimeout( ()=>{
-		 console.log('name值改变了')
-		 selfVue.data.name = 'you'
-	},2000)
+	
+    document.getElementById('change').onclick = function(){
+		selfVue.data.name = 'you'
+	}
 </script>
 </html>
