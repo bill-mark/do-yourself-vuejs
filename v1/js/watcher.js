@@ -1,8 +1,11 @@
 function Watcher(vm,exp,cb){
+	console.log(vm)
+	console.log(exp)
+	console.log(cb)
 	this.cb = cb
 	this.vm = vm
 	this.exp = exp
-	this.value = this.get()  // 将自己添加到订阅器的操作
+	this.value = this.get()  // 将自己添加到订阅器
 }
 
 Watcher.prototype = {
@@ -18,8 +21,8 @@ Watcher.prototype = {
 		}
 	},
 	get:function(){
-		Dep.target = this  //缓存自己
-        var value = this.vm.data[this.exp]  // 强制执行监听器里的get函数
+		Dep.target = this  //缓存
+        var value = this.vm.data[this.exp]  // 执行监听器里的get函数,触发监听
         Dep.target = null //释放
         return value
 	}
