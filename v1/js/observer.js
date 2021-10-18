@@ -51,7 +51,7 @@ Dep.prototype = {
   addSub: function (sub) {
     this.subs.push(sub);
   },
-  notify: function () {
+  notify: function () {  //notify 通知
     this.subs.forEach((sub) => {
       sub.update();
     });
